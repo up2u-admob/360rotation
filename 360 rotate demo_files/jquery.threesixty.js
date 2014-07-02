@@ -32,6 +32,8 @@ jQuery.fn.threesixty = function(options){
 		//var isTouch = ('ontouchstart' in window);
 		var isTouch = !window.navigator.msPointerEnabled;
 		
+		var pageX, pageY;
+		
 		var cache = [];
 		var parent = $("<div>");
 		parent.css({height:pic.height(), width:pic.width(), overflow:"hidden", position:"relative"});
