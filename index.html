@@ -1,9 +1,11 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-	<title>360 rotation</title>
+	<title>360 rotate demo</title>
 	<script type="text/javascript" src="./360 rotate demo_files/jquery.min.js"></script>
 	<script type="text/javascript" src="./360 rotate demo_files/jquery.threesixty.js"></script>
+	<script src="./360 rotate demo_files/jquery.ui.touch-punch.min.js"></script>
+	
 
 <script language="javascript">
 $(function() {
@@ -20,6 +22,7 @@ $(function() {
 	$("#auto").threesixty({images:arr, method:'auto', autoscrollspeed:100});
 
 });
+$('#widget').draggable();
 </script>
 	</head>
 	<body>
