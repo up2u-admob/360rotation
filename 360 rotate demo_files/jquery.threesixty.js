@@ -30,7 +30,7 @@ jQuery.fn.threesixty = function(options){
 	$(function() {
 		
 		//var isTouch = ('ontouchstart' in window);
-		var isTouch = window.navigator.msPointerEnabled;
+		var isTouch = !window.navigator.msPointerEnabled;
 		
 		var cache = [];
 		var parent = $("<div>");
