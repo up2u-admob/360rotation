@@ -8,24 +8,7 @@
 <script language="javascript">
 $(function() {
 	
-	var isTouch = ('ontouchstart' in document);
-	$('#click').bind({
-	    'touchstart mousedown': function(e) {
-	        e.originalEvent.preventDefault();
-	        this.pageX = (isTouch ? event.changedTouches[0].pageX : e.pageX);
-	        this.pageY = (isTouch ? event.changedTouches[0].pageY : e.pageY);
-	    },
-	    'touchmove mousemove': function(e) {
-	        e.originalEvent.preventDefault();
-	        this.pageX = (isTouch ? event.changedTouches[0].pageX : e.pageX);
-	        this.pageY = (isTouch ? event.changedTouches[0].pageY : e.pageY);
-	    },
-	    'touchend mouseup': function(e) {
-	    	e.originalEvent.preventDefault();
-	        this.pageX = (isTouch ? event.changedTouches[0].pageX : e.pageX);
-	        this.pageY = (isTouch ? event.changedTouches[0].pageY : e.pageY);
-	    }
-	});
+	
 
 	//l'array ARR va contenir la liste des images
 	var arr = [];
