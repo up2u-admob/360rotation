@@ -19,7 +19,7 @@ $(function() {
 	$("#click").threesixty({images:arr, method:'click', 'cycle':1, 'resetMargin': 10});
 	$("#auto").threesixty({images:arr, method:'auto', autoscrollspeed:100});
 
-	var isTouch = ('ontouchstart' in window);
+	var isTouch = ('ontouchstart' in document);
 	$('#click').bind({
 	    'touchstart mousedown': function(e) {
 	        e.preventDefault();
@@ -28,8 +28,13 @@ $(function() {
 	    },
 	    'touchmove mousemove': function(e) {
 	        e.preventDefault();
+	        this.pageX = (isTouch ? event.changedTouches[0].pageX : e.pageX);
+	        this.pageY = (isTouch ? event.changedTouches[0].pageY : e.pageY);
 	    },
 	    'touchend mouseup': function(e) {
+	    	e.preventDefault();
+	        this.pageX = (isTouch ? event.changedTouches[0].pageX : e.pageX);
+	        this.pageY = (isTouch ? event.changedTouches[0].pageY : e.pageY);
 	    }
 	});
 
