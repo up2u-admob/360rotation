@@ -28,6 +28,27 @@ jQuery.fn.threesixty = function(options){
 		var pic = $(this);
 
 	$(function() {
+		
+		var isTouch = ('ontouchstart' in document);
+		pic.bind({
+		    'touchstart mousedown': function(e) {
+		        e.originalEvent.preventDefault();
+		        this.pageX = (isTouch ? event.changedTouches[0].pageX : e.pageX);
+		        this.pageY = (isTouch ? event.changedTouches[0].pageY : e.pageY);
+		    },
+		    'touchmove mousemove': function(e) {
+		        e.originalEvent.preventDefault();
+		        this.pageX = (isTouch ? event.changedTouches[0].pageX : e.pageX);
+		        this.pageY = (isTouch ? event.changedTouches[0].pageY : e.pageY);
+		    },
+		    'touchend mouseup': function(e) {
+		    	e.originalEvent.preventDefault();
+		        this.pageX = (isTouch ? event.changedTouches[0].pageX : e.pageX);
+		        this.pageY = (isTouch ? event.changedTouches[0].pageY : e.pageY);
+		    }
+		});
+		
+		
 		var cache = [];
 		var parent = $("<div>");
 		parent.css({height:pic.height(), width:pic.width(), overflow:"hidden", position:"relative"});
