@@ -167,7 +167,7 @@ jQuery.fn.threesixty = function(options){
 				e.preventDefault(); 
 				pic.data("enabled","1"); 	
 			});	
-			pic.touchdown(function(e) {
+			pic.touchstart(function(e) {
 				e.preventDefault(); 
 				pic.data("enabled","1"); 	
 			});	
@@ -178,7 +178,7 @@ jQuery.fn.threesixty = function(options){
 				pic.data("currentIndex",pic.data("tempIndex"));
 			});
 			
-			$("body").touchup(function(e) {
+			$("body").touchend(function(e) {
 	 			e.preventDefault();
 	 			pic.data("enabled","0");
 				pic.data("currentIndex",pic.data("tempIndex"));
