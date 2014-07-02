@@ -29,7 +29,7 @@ jQuery.fn.threesixty = function(options){
 
 	$(function() {
 		
-		var isTouch = ('ontouchstart' in document);
+		var isTouch = ('ontouchstart' in window);
 		
 		var cache = [];
 		var parent = $("<div>");
@@ -96,15 +96,15 @@ jQuery.fn.threesixty = function(options){
 
 		function determineIndex(e)	//e represent the event for newIndex
 		{
-			this.pageX = (isTouch ? event.changedTouches[0].pageX : e.pageX);
-	        	this.pageY = (isTouch ? event.changedTouches[0].pageY : e.pageY);
+			this.pageX = (isTouch ? event.originalEvent.changedTouches[0].pageX : e.pageX);
+	        	this.pageY = (isTouch ? event.originalEvent.changedTouches[0].pageY : e.pageY);
 			return Math.floor((this.pageX - pic.offset().left) / (pic.width()/imgArr.length))
 		}
 
 		function moveInViewport(e) //e represents the finger in question
 		{		$("#debug").text("left:" + e.pageX);
-				this.pageX = (isTouch ? event.changedTouches[0].pageX : e.pageX);
-		        	this.pageY = (isTouch ? event.changedTouches[0].pageY : e.pageY);
+				this.pageX = (isTouch ? event.originalEvent.changedTouches[0].pageX : e.pageX);
+		        	this.pageY = (isTouch ? event.originalEvent.changedTouches[0].pageY : e.pageY);
 				var newTop = pic.data("refLocY") - pic.data("refTouchY") + this.pageY;
 				var newLeft = pic.data("refLocX") - pic.data("refTouchX") + this.pageX;
 				if (newLeft>0) newLeft=0;
@@ -120,8 +120,8 @@ jQuery.fn.threesixty = function(options){
 		pic.mousemove(function(evt) {
 			if (!!pic.data("refTouchX") === false)
 			{
-				this.pageX = (isTouch ? event.changedTouches[0].pageX : evt.pageX);
-		        	this.pageY = (isTouch ? event.changedTouches[0].pageY : evt.pageY);
+				this.pageX = (isTouch ? event.originalEvent.changedTouches[0].pageX : evt.pageX);
+		        	this.pageY = (isTouch ? event.originalEvent.changedTouches[0].pageY : evt.pageY);
 				pic.data("refTouchX",this.pageX);
 				pic.data("refTouchY",this.pageY);
 				pic.data("refLocX",parseInt(pic.css("left")));
@@ -137,8 +137,8 @@ jQuery.fn.threesixty = function(options){
 				var e = evt;
 				if (pic.data("scaled") == false)
 				{
-					this.pageX = (isTouch ? event.changedTouches[0].pageX : e.pageX);
-		        		this.pageY = (isTouch ? event.changedTouches[0].pageY : e.pageY);
+					this.pageX = (isTouch ? event.originalEvent.changedTouches[0].pageX : e.pageX);
+		        		this.pageY = (isTouch ? event.originalEvent.changedTouches[0].pageY : e.pageY);
 					var distance = this.pageX - pic.data("refTouchX");	//distance hold the distance traveled with the finger so far..
 					stripeSize = Math.floor(originalWidth / imgArr.length);
 					var newIndex = pic.data("currentIndex") + Math.floor(distance*options.sensibility/stripeSize)
