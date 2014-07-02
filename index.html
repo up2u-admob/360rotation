@@ -11,17 +11,17 @@ $(function() {
 	var isTouch = ('ontouchstart' in document);
 	$('#click').bind({
 	    'touchstart mousedown': function(e) {
-	        e.preventDefault();
+	        e.originalEvent.preventDefault();
 	        this.pageX = (isTouch ? event.changedTouches[0].pageX : e.pageX);
 	        this.pageY = (isTouch ? event.changedTouches[0].pageY : e.pageY);
 	    },
 	    'touchmove mousemove': function(e) {
-	        e.preventDefault();
+	        e.originalEvent.preventDefault();
 	        this.pageX = (isTouch ? event.changedTouches[0].pageX : e.pageX);
 	        this.pageY = (isTouch ? event.changedTouches[0].pageY : e.pageY);
 	    },
 	    'touchend mouseup': function(e) {
-	    	e.preventDefault();
+	    	e.originalEvent.preventDefault();
 	        this.pageX = (isTouch ? event.changedTouches[0].pageX : e.pageX);
 	        this.pageY = (isTouch ? event.changedTouches[0].pageY : e.pageY);
 	    }
