@@ -30,24 +30,6 @@ jQuery.fn.threesixty = function(options){
 	$(function() {
 		
 		var isTouch = ('ontouchstart' in document);
-		pic.bind({
-		    'touchstart mousedown': function(e) {
-		        e.originalEvent.preventDefault();
-		        this.pageX = (isTouch ? event.changedTouches[0].pageX : e.pageX);
-		        this.pageY = (isTouch ? event.changedTouches[0].pageY : e.pageY);
-		    },
-		    'touchmove mousemove': function(e) {
-		        e.originalEvent.preventDefault();
-		        this.pageX = (isTouch ? event.changedTouches[0].pageX : e.pageX);
-		        this.pageY = (isTouch ? event.changedTouches[0].pageY : e.pageY);
-		    },
-		    'touchend mouseup': function(e) {
-		    	e.originalEvent.preventDefault();
-		        this.pageX = (isTouch ? event.changedTouches[0].pageX : e.pageX);
-		        this.pageY = (isTouch ? event.changedTouches[0].pageY : e.pageY);
-		    }
-		});
-		
 		
 		var cache = [];
 		var parent = $("<div>");
@@ -114,13 +96,17 @@ jQuery.fn.threesixty = function(options){
 
 		function determineIndex(e)	//e represent the event for newIndex
 		{
-			return Math.floor((e.pageX - pic.offset().left) / (pic.width()/imgArr.length))
+			this.pageX = (isTouch ? event.changedTouches[0].pageX : e.pageX);
+	        	this.pageY = (isTouch ? event.changedTouches[0].pageY : e.pageY);
+			return Math.floor((this.pageX - pic.offset().left) / (pic.width()/imgArr.length))
 		}
 
 		function moveInViewport(e) //e represents the finger in question
 		{		$("#debug").text("left:" + e.pageX);
-				var newTop = pic.data("refLocY") - pic.data("refTouchY") + e.pageY;
-				var newLeft = pic.data("refLocX") - pic.data("refTouchX") + e.pageX;
+				this.pageX = (isTouch ? event.changedTouches[0].pageX : e.pageX);
+		        	this.pageY = (isTouch ? event.changedTouches[0].pageY : e.pageY);
+				var newTop = pic.data("refLocY") - pic.data("refTouchY") + this.pageY;
+				var newLeft = pic.data("refLocX") - pic.data("refTouchX") + this.pageX;
 				if (newLeft>0) newLeft=0;
 				if (pic.parent().width() + Math.abs(newLeft) > pic.width())
 					newLeft = -1*pic.width()+pic.parent().width();
@@ -134,8 +120,10 @@ jQuery.fn.threesixty = function(options){
 		pic.mousemove(function(evt) {
 			if (!!pic.data("refTouchX") === false)
 			{
-				pic.data("refTouchX",evt.pageX);
-				pic.data("refTouchY",evt.pageY);
+				this.pageX = (isTouch ? event.changedTouches[0].pageX : evt.pageX);
+		        	this.pageY = (isTouch ? event.changedTouches[0].pageY : evt.pageY);
+				pic.data("refTouchX",this.pageX);
+				pic.data("refTouchY",this.pageY);
 				pic.data("refLocX",parseInt(pic.css("left")));
 				pic.data("refLocY",parseInt(pic.css("top")));
 			
@@ -149,7 +137,9 @@ jQuery.fn.threesixty = function(options){
 				var e = evt;
 				if (pic.data("scaled") == false)
 				{
-					var distance = e.pageX - pic.data("refTouchX");	//distance hold the distance traveled with the finger so far..
+					this.pageX = (isTouch ? event.changedTouches[0].pageX : e.pageX);
+		        		this.pageY = (isTouch ? event.changedTouches[0].pageY : e.pageY);
+					var distance = this.pageX - pic.data("refTouchX");	//distance hold the distance traveled with the finger so far..
 					stripeSize = Math.floor(originalWidth / imgArr.length);
 					var newIndex = pic.data("currentIndex") + Math.floor(distance*options.sensibility/stripeSize)
 					if (newIndex < 0) 
