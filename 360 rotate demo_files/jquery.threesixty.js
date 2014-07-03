@@ -120,7 +120,8 @@ jQuery.fn.threesixty = function(options){
 				pic.css({left:newLeft, top:newTop});
 		}
 
-		pic.mousemove(function(evt) {
+		function mousemoveFunc(evt)
+		{
 			if (!!pic.data("refTouchX") === false)
 			{
 				this.pageX = (isTouch ? event.originalEvent.changedTouches[0].pageX : evt.pageX);
@@ -160,14 +161,30 @@ jQuery.fn.threesixty = function(options){
 					moveInViewport(e);
 				} 
 				return;
-			}	
-		})
+			}		
+		}
 		
+		pic.bind('touchmove', function(e) {
+		    event.preventDefault();                     // ページが動くのを止める
+		    this.pageX = event.changedTouches[0].pageX; // X 座標の位置
+		    this.pageY = event.changedTouches[0].pageY; // Y 座標の位置
+		    mousemoveFunc(e);
+		});
+		
+		pic.mousemove(mousemoveFunc);
+	
 		if (options.method == "click")
 		{  //Certain binding will be done if and only if the method is "click" instead of "mousemove"
 			pic.mousedown(function(e) {
 				e.preventDefault(); 
 				pic.data("enabled","1"); 	
+			});
+			
+			pic.bind('touchstart', function(e) {
+			    e.preventDefault();                     // ページが動くのを止める
+			    this.pageX = event.changedTouches[0].pageX; // X 座標の位置
+			    this.pageY = event.changedTouches[0].pageY; // Y 座標の位置
+			    pic.data("enabled","1"); 
 			});
 			
 		//	pic.touchstart(function(e) {
@@ -177,6 +194,14 @@ jQuery.fn.threesixty = function(options){
 	
 			$("body").mouseup(function(e) {
 	 			e.preventDefault();
+	 			pic.data("enabled","0");
+				pic.data("currentIndex",pic.data("tempIndex"));
+			});
+			
+			$("body").bind('touchend',function(e) {
+	 			e.preventDefault();
+	 			this.pageX = event.changedTouches[0].pageX; // X 座標の位置
+			    	this.pageY = event.changedTouches[0].pageY; // Y 座標の位置
 	 			pic.data("enabled","0");
 				pic.data("currentIndex",pic.data("tempIndex"));
 			});
