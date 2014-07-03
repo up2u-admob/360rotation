@@ -28,12 +28,6 @@ jQuery.fn.threesixty = function(options){
 		var pic = $(this);
 
 	$(function() {
-		
-		//var isTouch = ('ontouchstart' in window);
-		var isTouch = window.navigator.msPointerEnabled;
-		
-		var pageX, pageY;
-		
 		var cache = [];
 		var parent = $("<div>");
 		parent.css({height:pic.height(), width:pic.width(), overflow:"hidden", position:"relative"});
@@ -99,15 +93,11 @@ jQuery.fn.threesixty = function(options){
 
 		function determineIndex(e)	//e represent the event for newIndex
 		{
-			this.pageX = (isTouch ? event.originalEvent.changedTouches[0].pageX : e.pageX);
-	        	this.pageY = (isTouch ? event.originalEvent.changedTouches[0].pageY : e.pageY);
 			return Math.floor((e.pageX - pic.offset().left) / (pic.width()/imgArr.length))
 		}
 
 		function moveInViewport(e) //e represents the finger in question
 		{		$("#debug").text("left:" + e.pageX);
-				this.pageX = (isTouch ? event.originalEvent.changedTouches[0].pageX : e.pageX);
-		        	this.pageY = (isTouch ? event.originalEvent.changedTouches[0].pageY : e.pageY);
 				var newTop = pic.data("refLocY") - pic.data("refTouchY") + e.pageY;
 				var newLeft = pic.data("refLocX") - pic.data("refTouchX") + e.pageX;
 				if (newLeft>0) newLeft=0;
@@ -120,12 +110,9 @@ jQuery.fn.threesixty = function(options){
 				pic.css({left:newLeft, top:newTop});
 		}
 
-		function mousemoveFunc(evt)
-		{
+		pic.mousemove(function(evt) {
 			if (!!pic.data("refTouchX") === false)
 			{
-				this.pageX = (isTouch ? event.originalEvent.changedTouches[0].pageX : evt.pageX);
-		        	this.pageY = (isTouch ? event.originalEvent.changedTouches[0].pageY : evt.pageY);
 				pic.data("refTouchX",evt.pageX);
 				pic.data("refTouchY",evt.pageY);
 				pic.data("refLocX",parseInt(pic.css("left")));
@@ -141,8 +128,6 @@ jQuery.fn.threesixty = function(options){
 				var e = evt;
 				if (pic.data("scaled") == false)
 				{
-					this.pageX = (isTouch ? event.originalEvent.changedTouches[0].pageX : e.pageX);
-		        		this.pageY = (isTouch ? event.originalEvent.changedTouches[0].pageY : e.pageY);
 					var distance = e.pageX - pic.data("refTouchX");	//distance hold the distance traveled with the finger so far..
 					stripeSize = Math.floor(originalWidth / imgArr.length);
 					var newIndex = pic.data("currentIndex") + Math.floor(distance*options.sensibility/stripeSize)
@@ -161,56 +146,21 @@ jQuery.fn.threesixty = function(options){
 					moveInViewport(e);
 				} 
 				return;
-			}		
-		}
+			}	
+		})
 		
-		pic.bind('touchmove', function(e) {
-		    event.preventDefault();                     // ページが動くのを止める
-		    this.pageX = event.changedTouches[0].pageX; // X 座標の位置
-		    this.pageY = event.changedTouches[0].pageY; // Y 座標の位置
-		    mousemoveFunc(e);
-		});
-		
-		pic.mousemove(mousemoveFunc);
-	
 		if (options.method == "click")
 		{  //Certain binding will be done if and only if the method is "click" instead of "mousemove"
 			pic.mousedown(function(e) {
 				e.preventDefault(); 
 				pic.data("enabled","1"); 	
-			});
-			
-			pic.bind('touchstart', function(e) {
-			    e.preventDefault();                     // ページが動くのを止める
-			    this.pageX = event.changedTouches[0].pageX; // X 座標の位置
-			    this.pageY = event.changedTouches[0].pageY; // Y 座標の位置
-			    pic.data("enabled","1"); 
-			});
-			
-		//	pic.touchstart(function(e) {
-		//		e.preventDefault(); 
-		//		pic.data("enabled","1"); 	
-		//	});	
+			});	
 	
 			$("body").mouseup(function(e) {
 	 			e.preventDefault();
 	 			pic.data("enabled","0");
 				pic.data("currentIndex",pic.data("tempIndex"));
 			});
-			
-			$("body").bind('touchend',function(e) {
-	 			e.preventDefault();
-	 			this.pageX = event.changedTouches[0].pageX; // X 座標の位置
-			    	this.pageY = event.changedTouches[0].pageY; // Y 座標の位置
-	 			pic.data("enabled","0");
-				pic.data("currentIndex",pic.data("tempIndex"));
-			});
-			
-	//		$("body").touchend(function(e) {
-	// 			e.preventDefault();
-	// 			pic.data("enabled","0");
-	//			pic.data("currentIndex",pic.data("tempIndex"));
-	//		});
 		}
 		
 		if (options.method == "auto") {
