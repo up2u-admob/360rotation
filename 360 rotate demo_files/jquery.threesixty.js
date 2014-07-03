@@ -7,6 +7,8 @@
  * http://www.opensource.org/licenses/mit-license.php
  * *
  * Date: Tue Aug 9
+ *
+ * Edit by Up2U: add touch support 20140703
  */
 
 jQuery.fn.threesixty = function(options){
