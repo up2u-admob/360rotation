@@ -16,8 +16,7 @@ jQuery.fn.threesixty = function(options){
 	options.cycle = options.cycle || 1;
 	options.resetMargin = options.resetMargin || 0;
 	options.direction = options.direction || "forward";
-//	options.sensibility = options.sensibility || options.cycle * 0.35;
-	options.sensibility = options.sensibility || options.cycle * 0.7;
+	options.sensibility = options.sensibility || options.cycle * 0.35;
 	options.autoscrollspeed = options.autoscrollspeed || 500;
 
 
