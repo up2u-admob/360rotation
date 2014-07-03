@@ -154,13 +154,25 @@ jQuery.fn.threesixty = function(options){
 			pic.mousedown(function(e) {
 				e.preventDefault(); 
 				pic.data("enabled","1"); 	
-			});	
+			});
+			
+			pic.bind('touchstart', function(e) {
+				 e.preventDefault();        
+				 pic.data("enabled","1"); 
+			});
 	
 			$("body").mouseup(function(e) {
 	 			e.preventDefault();
 	 			pic.data("enabled","0");
 				pic.data("currentIndex",pic.data("tempIndex"));
 			});
+			
+			$("body").bind('touchend', function(e) {
+	 			e.preventDefault();
+	 			pic.data("enabled","0");
+				pic.data("currentIndex",pic.data("tempIndex"));
+			});
+		}
 		}
 		
 		if (options.method == "auto") {
