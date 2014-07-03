@@ -157,7 +157,7 @@ jQuery.fn.threesixty = function(options){
 			});
 			
 			pic.bind('touchstart', function(e) {
-				 e.preventDefault();        
+				 //e.preventDefault();        
 				 pic.data("enabled","1"); 
 			});
 	
@@ -168,7 +168,7 @@ jQuery.fn.threesixty = function(options){
 			});
 			
 			$("body").bind('touchend', function(e) {
-	 			e.preventDefault();
+	 			//e.preventDefault();
 	 			pic.data("enabled","0");
 				pic.data("currentIndex",pic.data("tempIndex"));
 			});
