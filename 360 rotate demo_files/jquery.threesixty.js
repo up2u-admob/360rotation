@@ -151,28 +151,28 @@ jQuery.fn.threesixty = function(options){
 		
 		if (options.method == "click")
 		{  //Certain binding will be done if and only if the method is "click" instead of "mousemove"
-		//	pic.mousedown(function(e) {
-		//		e.preventDefault(); 
-		//		pic.data("enabled","1"); 	
-		//	});
-			
-			pic.bind('mousedown', function(e) {
-				 e.preventDefault();        
-				 pic.data("enabled","1"); 
+			pic.mousedown(function(e) {
+				e.preventDefault(); 
+				pic.data("enabled","1"); 	
 			});
-	
-		//	$("body").mouseup(function(e) {
-	 	//		e.preventDefault();
-	 	//		pic.data("enabled","0");
-		//		pic.data("currentIndex",pic.data("tempIndex"));
-		//	});
 			
-			$("body").bind('mouseup', function(e) {
+		//	pic.bind('mousedown', function(e) {
+		//		 e.preventDefault();        
+		//		 pic.data("enabled","1"); 
+		//	});
+	
+			$("body").mouseup(function(e) {
 	 			e.preventDefault();
 	 			pic.data("enabled","0");
 				pic.data("currentIndex",pic.data("tempIndex"));
 			});
-		}
+			
+		//	$("body").bind('mouseup', function(e) {
+	 	//		e.preventDefault();
+	 	//		pic.data("enabled","0");
+		//		pic.data("currentIndex",pic.data("tempIndex"));
+		//	});
+		
 		}
 		
 		if (options.method == "auto") {
