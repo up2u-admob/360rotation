@@ -161,8 +161,8 @@ jQuery.fn.threesixty = function(options){
 				 pic.data("enabled","1"); 
 			});
 	
-			$("body").mouseup(function(e) {
-	 	////		e.preventDefault();
+		//	$("body").mouseup(function(e) {
+	 	//		e.preventDefault();
 	 	//		pic.data("enabled","0");
 		//		pic.data("currentIndex",pic.data("tempIndex"));
 		//	});
